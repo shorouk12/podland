@@ -6,13 +6,14 @@ const barIcons = document.querySelectorAll('.bar-icons');
 const barIcon = document.querySelector('.bar-icon');
 const info = document.querySelector('.info');
 const infoContent = document.querySelectorAll('.info span');
-const btnFollowProfile = document.querySelector('.follow-following');
+//const btnFollowProfile = document.querySelector('.follow-following');
 const podcastContent = document.querySelector('.podcast-content');
 const podcastComponentHeading = document.querySelector('.podcast-component-heading');
 const hideDisplaySide = ['podcast-content','followers-content' ,'following-content'];
 const barLinks = document.querySelectorAll('.sideBar ul .bar-item');
 const generalBtn = document.querySelectorAll('.cBtn');
 const tempUserName = 'Will Smith';
+const profileVeiw = document.querySelector('.profile-veiw');
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 //event handlers
@@ -85,32 +86,6 @@ info.addEventListener('click',function(e){
 
 
 //3)changing the follow btn into following
-btnFollowProfile.addEventListener('click',function(){
-
-    if(btnFollowProfile.classList.contains('btn-follow-profile')){ 
-
-        //1)change btn ui
-        btnFollowProfile.classList.remove('btn-follow-profile');
-        btnFollowProfile.classList.add('btn-following-profile');
-        btnFollowProfile.textContent = 'Following';
-
-        //2)add user as following
-
-    }
-
-    else{
-
-        //1) change btn ui
-        btnFollowProfile.classList.remove('btn-following-profile');
-        btnFollowProfile.classList.add('btn-follow-profile');
-        btnFollowProfile.textContent = 'Follow';
-       
-
-        //2) remove user from following 
-
-    }
-
-});
 
 
 //4) follow-following general
@@ -140,3 +115,65 @@ barLinks.forEach(link=>{
     
     });
 });
+
+const followBTn = function(){
+    
+
+    if(btnFollowProfile.classList.contains('btn-follow-profile')){ 
+
+        //1)change btn ui
+        btnFollowProfile.classList.remove('btn-follow-profile');
+        btnFollowProfile.classList.add('btn-following-profile');
+        btnFollowProfile.textContent = 'Following';
+
+        //2)add user as following
+
+    }
+
+    else{
+
+        //1) change btn ui
+        btnFollowProfile.classList.remove('btn-following-profile');
+        btnFollowProfile.classList.add('btn-follow-profile');
+        btnFollowProfile.textContent = 'Follow';
+       
+
+        //2) remove user from following 
+
+    }
+
+
+
+}
+
+const getMainInfo = function(){
+    const userData =JSON.parse(localStorage.getItem("user-data"));
+    renderMainInfo(userData)
+    
+}
+
+const renderMainInfo = function(data){
+    const markup = `
+    <img  src=${data.photo} alt="user profile picture" class="circle-profile-img">
+
+                   <a href="changePhoto.html">
+                        <i class="fa-solid fa-camera current-camera-icon"></i> 
+                   </a>
+                   
+                   <div class="inside  text-center"> 
+                        <h2 class="user-name mt-4 p-5 pb-4 fw-bold">${data.name}</h2>
+                        <div class="info  fs-4">
+                            <div class="podcasts"> 3 <br> <span class="active podcasts">Podcasts</span></div>
+                            <div class="followers"> ${data.followers} <br> <span class="followers">Followers</span></div>
+                            <div class="following"> ${data.following}<br> <span class="following">Following</span></div>
+                        </div>
+                        
+                        <a href="edit-profile.html"> <button class="follow-following btn-follow-profile">Edit Profile</button></a>
+                    </div>
+                  `;
+    
+    profileVeiw.insertAdjacentHTML("beforeend",markup);
+    document.querySelector('.follow-following').addEventListener('click',followBTn);
+}
+
+getMainInfo();

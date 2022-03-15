@@ -233,22 +233,7 @@ body{
     position: relative;
 }
 
-::-webkit-scrollbar{
-    width:.8em;
-}
 
-::-webkit-scrollbar-track{
-    background-color: #535456;
-    border-radius: 100vw;
-   
-}
-
-::-webkit-scrollbar-thumb{
-    background-color: #1B1C1F;
-    border-radius: 100vw;
-    border: 2px solid #28292c ;
-    
-}
 
 .side-content .scroll{
     margin-top: 5rem;
